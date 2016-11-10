@@ -15,9 +15,11 @@ namespace Vsite.CSharp
         string m_ime;       // član referentnog tipa
         int m_matičniBroj;  // član vrijednosnog tipa
 
-        // T Implementirati metodu Equals(Osoba) iz sučelja IEquatable<Osoba> tako da za osobe s istim imenom i istim matičnim brojem rezultat bude true
+        // Implementirati metodu Equals(Osoba) iz sučelja IEquatable<Osoba> tako da za osobe s istim imenom i istim matičnim brojem rezultat bude true
         public bool Equals(Osoba other)
         {
+            if (other == null)
+                return false;
             if (m_matičniBroj != other.m_matičniBroj)
                 return false;
            return object.Equals(m_ime, other.m_ime);      
@@ -31,6 +33,16 @@ namespace Vsite.CSharp
             if (GetType() != obj.GetType())
                 return false;
             return Equals((Osoba)obj);
+        }
+
+        public static bool operator ==(Osoba a,Osoba b)
+        {
+            return Osoba.Equals(a,b);
+        }
+
+        public static bool operator !=(Osoba a, Osoba b)
+        {
+            return !(a==b);
         }
 
 
